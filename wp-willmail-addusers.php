@@ -9,7 +9,7 @@
  *
  * Plugin Name: WP Willmail Addusers
  * Plugin URI:  https://github.com/1yaan/wp-willmail-addusers
- * Description: This is Wordpress plugin. This plugin will add users to Willmail.
+ * Description: This is WordPress plugin. This plugin will add users to Willmail.
  * Version:     0.1.0
  * Author:      1yaan
  * Author URI:  https://github.com/1yaan

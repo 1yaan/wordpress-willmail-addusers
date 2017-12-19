@@ -1,5 +1,5 @@
-# Wordpress "WiLL Mail" Add Users Plugin
-This is Wordpress plugin. This plugin will add users to Willmail.
+# WordPress "WiLL Mail" Add Users Plugin
+This is WordPress plugin. This plugin will add users to Willmail.
 
 ## ただいま作成中でっす！！／(^o^)＼
 
@@ -10,7 +10,7 @@ WiLL Mail https://willcloud.jp/
 WiLL Mail さんは非常に優秀なメール送信のクラウドシステムです。
 developpers用にAPIも公開いただいています。
 
-このプラグインは、「Wordpressで作ったステップメールの登録フォームとWiLL Mailの顧客情報テーブルを連携したい！」という内容を実現するために制作しました。
+このプラグインは、「WordPressで作ったステップメールの登録フォームとWiLL Mailの顧客情報テーブルを連携したい！」という内容を実現するために制作しました。
 
 フォーム部分はcontactform 7 https://ja.wordpress.org/plugins/contact-form-7/ をご利用ください。
 

@@ -44,3 +44,11 @@ if ( ! function_exists( 'add_action' ) ) {
 	echo "Hi there! I'm just a plugin, not much I can do when called directly.";
 	exit;
 }
+
+// This plugin version.
+define( 'WP_WILLMAIL_ADDUSERS__VERSION', '0.1' );
+// The absolute path of the directory that contains the file, with trailing slash ("/").
+define( 'WP_WILLMAIL_ADDUSERS__PLUGIN_NAME', 'wp-bitcoin-chart' );
+define( 'WP_WILLMAIL_ADDUSERS__PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
+define( 'WP_WILLMAIL_ADDUSERS__PLUGIN_DIR_URL', plugin_dir_url( __FILE__ ) );
+define( 'WP_WILLMAIL_ADDUSERS__PLUGIN_BASENAME', plugin_basename( __FILE__ ) );

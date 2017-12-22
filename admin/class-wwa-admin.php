@@ -41,7 +41,7 @@ class WWA_Admin {
 	 * Define public hooks.
 	 *
 	 * @since  0.1.0
-	 * @access public
+	 * @access private
 	 */
 	private function define_public_hooks() {
 		$plugin_public = new WWA_Public();

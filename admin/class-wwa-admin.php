@@ -63,7 +63,6 @@ class WWA_Admin {
 	 *
 	 * @since  0.1.0
 	 * @access public
-	 * @return string The version number of the plugin.
 	 */
 	private function define_public_hooks() {
 		$plugin_public = new WWA_Public( $this->get_plugin_name(), $this->get_version() );

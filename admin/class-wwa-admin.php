@@ -17,33 +17,12 @@
 class WWA_Admin {
 
 	/**
-	 * The unique identifier of this plugin.
-	 *
-	 * @since    0.1.0
-	 * @access   protected
-	 * @var      string     $plugin_name
-	 */
-	protected $plugin_name;
-
-	/**
-	 * The current version of this plugin.
-	 *
-	 * @since  0.1.0
-	 * @access protected
-	 * @var    string $version
-	 */
-	protected $version;
-
-	/**
 	 * Construct.
 	 *
 	 * @since  0.1.0
 	 * @access public
 	 */
 	public function __construct() {
-		$this->plugin_name = WWA__PLUGIN_NAME;
-		$this->version     = WWA__VERSION;
-
 		$this->load_dependencies();
 		$this->define_public_hooks();
 	}
@@ -65,6 +44,6 @@ class WWA_Admin {
 	 * @access public
 	 */
 	private function define_public_hooks() {
-		$plugin_public = new WWA_Public( $this->get_plugin_name(), $this->get_version() );
+		$plugin_public = new WWA_Public();
 	}
 }

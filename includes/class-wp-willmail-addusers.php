@@ -17,58 +17,14 @@
 class Wp_Willmail_Addusers {
 
 	/**
-	 * The unique identifier of this plugin.
-	 *
-	 * @since  0.1.0
-	 * @access protected
-	 * @var    string $plugin_name
-	 */
-	protected $plugin_name;
-
-	/**
-	 * The current version of this plugin.
-	 *
-	 * @since  0.1.0
-	 * @access protected
-	 * @var    string $version
-	 */
-	protected $version;
-
-	/**
 	 * Construct.
 	 *
 	 * @since  0.1.0
 	 * @access public
 	 */
 	public function __construct() {
-		$this->plugin_name = WWA__PLUGIN_NAME;
-		$this->version     = WWA__VERSION;
-
 		$this->load_dependencies();
 		$this->define_public_hooks();
-	}
-
-	/**
-	 * The name of the plugin used to uniquely identify it within the context of
-	 * WordPress and to define internationalization functionality.
-	 *
-	 * @since  0.1.0
-	 * @access public
-	 * @return string The name of the plugin.
-	 */
-	public function get_plugin_name() {
-		return $this->plugin_name;
-	}
-
-	/**
-	 * Retrieve the version number of the plugin.
-	 *
-	 * @since  0.1.0
-	 * @access public
-	 * @return string The version number of the plugin.
-	 */
-	public function get_version() {
-		return $this->version;
 	}
 
 	/**
@@ -88,7 +44,7 @@ class Wp_Willmail_Addusers {
 	 * @access private
 	 */
 	private function define_public_hooks() {
-		$plugin_public = new WWA_Public( $this->get_plugin_name(), $this->get_version() );
+		$plugin_public = new WWA_Public();
 	}
 
 	/**

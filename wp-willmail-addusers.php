@@ -54,16 +54,18 @@ define( 'WWA__PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
 define( 'WWA__PLUGIN_DIR_URL', plugin_dir_url( __FILE__ ) );
 define( 'WWA__PLUGIN_BASENAME', plugin_basename( __FILE__ ) );
 
+define( 'WWA__WILLMAIL_URL', 'https://willap.jp/api/rest/1.0.0/customers/' );
+
 /*
  * The code that runs during plugin activation.
  */
-require_once plugin_dir_path( __FILE__ ) . 'includes/class-wp-willmail-addusers-activator.php';
+require_once plugin_dir_path( __FILE__ ) . 'includes/class-wwa-activator.php';
 register_activation_hook( __FILE__, array('WWA_Activator', 'activate') );
 
 /*
  * The code that runs during plugin activation.
  */
-require_once plugin_dir_path( __FILE__ ) . 'includes/class-wp-willmail-addusers-deactivator.php';
+require_once plugin_dir_path( __FILE__ ) . 'includes/class-wwa-deactivator.php';
 register_deactivation_hook( __FILE__, array('WWA_Deactivator', 'deactivate') );
 
 require_once plugin_dir_path( __FILE__ ) . 'includes/class-wp-willmail-addusers.php';
@@ -73,7 +75,7 @@ require_once plugin_dir_path( __FILE__ ) . 'includes/class-wp-willmail-addusers.
  */
 if ( defined( 'WPCF7_VERSION' ) ) {
 	// すべての動作は、contact form 7 があるときにしか動かない.
-	$wp_willmail_addusers = new WpWillmailAddusers();
+	$wp_willmail_addusers = new Wp_Willmail_Addusers();
 	$wp_willmail_addusers->run();
 }
 

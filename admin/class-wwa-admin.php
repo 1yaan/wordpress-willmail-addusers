@@ -28,21 +28,21 @@ class WWA_Admin {
 	/**
 	 * The current version of this plugin.
 	 *
-	 * @since    0.1.0
-	 * @access   protected
-	 * @var      string     $version
+	 * @since  0.1.0
+	 * @access protected
+	 * @var    string $version
 	 */
 	protected $version;
 
 	/**
 	 * Construct.
 	 *
-	 * @since    0.1.0
-   * @access   public
+	 * @since  0.1.0
+	 * @access public
 	 */
-	public function __construct(){
+	public function __construct() {
 		$this->plugin_name = WWA__PLUGIN_NAME;
-		$this->version = WWA__VERSION;
+		$this->version     = WWA__VERSION;
 
 		$this->load_dependencies();
 		$this->define_public_hooks();
@@ -55,17 +55,17 @@ class WWA_Admin {
 	 * @access private
 	 */
 	private function load_dependencies() {
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'public/class-wp-willmail-addusers-public.php';
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'public/class-wwa-public.php';
 	}
 
 	/**
 	 * Define public hooks.
 	 *
 	 * @since  0.1.0
-	 * @access private
+	 * @access public
 	 * @return string The version number of the plugin.
 	 */
-	public function define_public_hooks() {
+	private function define_public_hooks() {
 		$plugin_public = new WWA_Public( $this->get_plugin_name(), $this->get_version() );
 	}
 }

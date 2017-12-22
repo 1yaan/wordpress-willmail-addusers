@@ -1,6 +1,6 @@
 <?php
 /**
- * Wordpress WiLL Mail AddUsers.
+ * WordPress WiLL Mail AddUsers.
  *
  * @since      0.1.0
  * @version    0.1
@@ -12,9 +12,9 @@
  */
 
 /**
- * WpWillmailAddusers
+ * Wp_Willmail_Addusers
  */
-class WpWillmailAddusers {
+class Wp_Willmail_Addusers {
 
 	/**
 	 * The unique identifier of this plugin.
@@ -38,13 +38,14 @@ class WpWillmailAddusers {
 	 * Construct.
 	 *
 	 * @since  0.1.0
-   * @access public
+	 * @access public
 	 */
-	public function __construct(){
-			$this->plugin_name = WWA__PLUGIN_NAME;
-			$this->version = WWA__VERSION;
-			$this->load_dependencies();
-			$this->define_public_hooks();
+	public function __construct() {
+		$this->plugin_name = WWA__PLUGIN_NAME;
+		$this->version     = WWA__VERSION;
+
+		$this->load_dependencies();
+		$this->define_public_hooks();
 	}
 
 	/**
@@ -77,7 +78,7 @@ class WpWillmailAddusers {
 	 * @access private
 	 */
 	private function load_dependencies() {
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'public/class-wp-willmail-addusers-public.php';
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'public/class-wwa-public.php';
 	}
 
 	/**
@@ -85,9 +86,8 @@ class WpWillmailAddusers {
 	 *
 	 * @since  0.1.0
 	 * @access private
-	 * @return string The version number of the plugin.
 	 */
-	public function define_public_hooks() {
+	private function define_public_hooks() {
 		$plugin_public = new WWA_Public( $this->get_plugin_name(), $this->get_version() );
 	}
 

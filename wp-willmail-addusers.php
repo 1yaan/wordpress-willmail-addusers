@@ -60,13 +60,13 @@ define( 'WWA__WILLMAIL_URL', 'https://willap.jp/api/rest/1.0.0/customers/' );
  * The code that runs during plugin activation.
  */
 require_once plugin_dir_path( __FILE__ ) . 'includes/class-wwa-activator.php';
-register_activation_hook( __FILE__, array('WWA_Activator', 'activate') );
+register_activation_hook( __FILE__, array( 'WWA_Activator', 'activate' ) );
 
 /*
  * The code that runs during plugin activation.
  */
 require_once plugin_dir_path( __FILE__ ) . 'includes/class-wwa-deactivator.php';
-register_deactivation_hook( __FILE__, array('WWA_Deactivator', 'deactivate') );
+register_deactivation_hook( __FILE__, array( 'WWA_Deactivator', 'deactivate' ) );
 
 require_once plugin_dir_path( __FILE__ ) . 'includes/class-wp-willmail-addusers.php';
 

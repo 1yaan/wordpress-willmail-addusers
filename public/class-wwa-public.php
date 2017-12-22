@@ -1,28 +1,28 @@
 <?php
 /**
- * Fired during plugin deactivation.
+ * The public-facing functionality of the plugin.
  *
- * This class defines all code necessary to run during the plugin's deactivation.
+ * Defines the plugin name, version, and hooks to
+ * enqueue the public-specific stylesheet and JavaScript.
  *
  * @since      0.1.0
  * @version    0.1
  * @package    wp-bitcoin-chart
- * @subpackage wp-bitcoin-chart/includes
+ * @subpackage wp-bitcoin-chart/public
  * @author     1yaan, {@link https://github.com/1yaan https://github.com/1yaan}
  * @copyright  1yaan, {@link https://github.com/1yaan https://github.com/1yaan}
  * @license    GPLv2 or later, {@link https://www.gnu.org/licenses/gpl.html https://www.gnu.org/licenses/gpl.html}
  */
 
 /**
- * WWA_Deactivator
+ * WWA_Public
  */
-class WWA_Deactivator {
-
+class WWA_Public {
 	/**
-	 * Fired when the plugin is deactivated.
+	 * Initialize the class and set its properties.
 	 *
-	 * @since    0.1.0
+	 * @since 0.1.0
 	 */
-	public static function deactivate() {
-	} // end deactivate
+	public function __construct() {
+	}
 }

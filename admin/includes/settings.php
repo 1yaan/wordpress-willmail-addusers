@@ -37,7 +37,7 @@ if ( ! empty( $_POST ) and check_admin_referer( 'wp-willmail-put-settings', 'wwp
 			// おまじない.
 			wp_nonce_field( 'wp-willmail-put-settings', 'wwp-nonce' );
 
-			// 初期値
+			// 初期値.
 			$wp_willmail_put_target_db_id = get_option( 'wp_willmail_put_target_db_id' );
 			$wp_willmail_put_account_key  = get_option( 'wp_willmail_put_account_key' );
 			$wp_willmail_put_api_key      = get_option( 'wp_willmail_put_api_key' );

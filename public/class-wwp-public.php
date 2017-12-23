@@ -15,9 +15,9 @@
  */
 
 /**
- * WWA_Public
+ * WWP_Public
  */
-class WWA_Public {
+class WWP_Public {
 	/**
 	 * Initialize the class and set its properties.
 	 *

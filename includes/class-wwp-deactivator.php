@@ -14,9 +14,9 @@
  */
 
 /**
- * WWA_Deactivator
+ * WWP_Deactivator
  */
-class WWA_Deactivator {
+class WWP_Deactivator {
 
 	/**
 	 * Fired when the plugin is deactivated.

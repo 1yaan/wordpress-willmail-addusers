@@ -1,7 +1,7 @@
-# WordPress "WiLL Mail" Add Users Plugin
+# WordPress "WiLL Mail" Put Plugin
 This is WordPress plugin. This plugin will add users to Willmail.
 
-Github Page: https://1yaan.github.io/wp-willmail-addusers/
+Github Page: https://1yaan.github.io/wp-willmail-put/
 
 ### このプラグインは...
 

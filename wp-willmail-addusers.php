@@ -8,7 +8,7 @@
  * that starts the plugin.
  *
  * Plugin Name: WP Willmail Addusers
- * Plugin URI:  https://1yaan.github.io/wp-willmail-addusers/
+ * Plugin URI:  https://1yaan.github.io/wp-willmail-put/
  * Description: This is WordPress plugin. This plugin will add users to Willmail.
  * Version:     0.1.0
  * Author:      1yaan
@@ -16,11 +16,11 @@
  * License:     GPLv2 or later
  * License URI: https://www.gnu.org/licenses/gpl.html
  * Domain Path: /languages/
- * Text Domain: wp_willmail_addusers
+ * Text Domain: wp_willmail_put
  *
- * @link        https://github.com/1yaan/wp-willmail-addusers
+ * @link        https://github.com/1yaan/wp-willmail-put
  * @since       0.1.0
- * @package     wp-willmail-addusers
+ * @package     wp-willmail-put
  */
 
 /*
@@ -47,36 +47,36 @@ if ( ! function_exists( 'add_action' ) ) {
 }
 
 // This plugin version.
-define( 'WWA__VERSION', '0.1' );
+define( 'WWP__VERSION', '0.1' );
 // The absolute path of the directory that contains the file, with trailing slash ("/").
-define( 'WWA__PLUGIN_NAME', 'wp-willmail-addusers' );
-define( 'WWA__PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
-define( 'WWA__PLUGIN_DIR_URL', plugin_dir_url( __FILE__ ) );
-define( 'WWA__PLUGIN_BASENAME', plugin_basename( __FILE__ ) );
+define( 'WWP__PLUGIN_NAME', 'wp-willmail-put' );
+define( 'WWP__PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
+define( 'WWP__PLUGIN_DIR_URL', plugin_dir_url( __FILE__ ) );
+define( 'WWP__PLUGIN_BASENAME', plugin_basename( __FILE__ ) );
 
-define( 'WWA__WILLMAIL_URL', 'https://willap.jp/api/rest/1.0.0/customers/' );
-
-/*
- * The code that runs during plugin activation.
- */
-require_once plugin_dir_path( __FILE__ ) . 'includes/class-wwa-activator.php';
-register_activation_hook( __FILE__, array( 'WWA_Activator', 'activate' ) );
+define( 'WWP__WILLMAIL_URL', 'https://willap.jp/api/rest/1.0.0/customers/' );
 
 /*
  * The code that runs during plugin activation.
  */
-require_once plugin_dir_path( __FILE__ ) . 'includes/class-wwa-deactivator.php';
-register_deactivation_hook( __FILE__, array( 'WWA_Deactivator', 'deactivate' ) );
+require_once plugin_dir_path( __FILE__ ) . 'includes/class-wwp-activator.php';
+register_activation_hook( __FILE__, array( 'WWP_Activator', 'activate' ) );
 
-require_once plugin_dir_path( __FILE__ ) . 'includes/class-wp-willmail-addusers.php';
+/*
+ * The code that runs during plugin activation.
+ */
+require_once plugin_dir_path( __FILE__ ) . 'includes/class-wwp-deactivator.php';
+register_deactivation_hook( __FILE__, array( 'WWP_Deactivator', 'deactivate' ) );
+
+require_once plugin_dir_path( __FILE__ ) . 'includes/class-wp-willmail-put.php';
 
 /*
  * Begin execution of the plugin.
  */
 if ( defined( 'WPCF7_VERSION' ) ) {
 	// すべての動作は、contact form 7 があるときにしか動かない.
-	$wp_willmail_addusers = new Wp_Willmail_Addusers();
-	$wp_willmail_addusers->run();
+	$wp_willmail_put = new Wp_Willmail_Addusers();
+	$wp_willmail_put->run();
 }
 
 if ( is_admin() ) {

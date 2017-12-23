@@ -14,9 +14,9 @@
  */
 
 /**
- * WWA_Activator
+ * WWP_Activator
  */
-class WWA_Activator {
+class WWP_Activator {
 
 	/**
 	 * Fired when the plugin is activated.

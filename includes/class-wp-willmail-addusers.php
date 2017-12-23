@@ -1,6 +1,6 @@
 <?php
 /**
- * WordPress WiLL Mail AddUsers.
+ * WordPress WiLL Mail Put.
  *
  * @since      0.1.0
  * @version    0.1
@@ -34,7 +34,7 @@ class Wp_Willmail_Addusers {
 	 * @access private
 	 */
 	private function load_dependencies() {
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'public/class-wwa-public.php';
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'public/class-wwp-public.php';
 	}
 
 	/**
@@ -44,7 +44,7 @@ class Wp_Willmail_Addusers {
 	 * @access private
 	 */
 	private function define_public_hooks() {
-		$plugin_public = new WWA_Public();
+		$plugin_public = new WWP_Public();
 	}
 
 	/**

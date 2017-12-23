@@ -2,7 +2,7 @@
 /**
  * Class SampleTest
  *
- * @package Wp_Willmail_Addusers
+ * @package wp_willmail_put
  */
 
 /**

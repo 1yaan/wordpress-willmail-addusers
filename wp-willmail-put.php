@@ -7,9 +7,9 @@
  * registers the activation and deactivation functions, and defines a function
  * that starts the plugin.
  *
- * Plugin Name: WP Willmail Addusers
+ * Plugin Name: WP Willmail Put
  * Plugin URI:  https://1yaan.github.io/wp-willmail-put/
- * Description: This is WordPress plugin. This plugin will add users to Willmail.
+ * Description: This is WordPress plugin. This plugin will put data to Willmail.
  * Version:     0.1.0
  * Author:      1yaan
  * Author URI:  https://github.com/1yaan
@@ -75,7 +75,7 @@ require_once plugin_dir_path( __FILE__ ) . 'includes/class-wp-willmail-put.php';
  */
 if ( defined( 'WPCF7_VERSION' ) ) {
 	// すべての動作は、contact form 7 があるときにしか動かない.
-	$wp_willmail_put = new Wp_Willmail_Addusers();
+	$wp_willmail_put = new Wp_Willmail_Put();
 	$wp_willmail_put->run();
 }
 

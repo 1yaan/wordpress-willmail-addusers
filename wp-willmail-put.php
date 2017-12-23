@@ -59,26 +59,28 @@ define( 'WWP__WILLMAIL_URL', 'https://willap.jp/api/rest/1.0.0/customers/' );
 /*
  * The code that runs during plugin activation.
  */
-require_once plugin_dir_path( __FILE__ ) . 'includes/class-wwp-activator.php';
+require_once WWP__PLUGIN_DIR . 'includes/class-wwp-activator.php';
 register_activation_hook( __FILE__, array( 'WWP_Activator', 'activate' ) );
 
 /*
  * The code that runs during plugin activation.
  */
-require_once plugin_dir_path( __FILE__ ) . 'includes/class-wwp-deactivator.php';
+require_once WWP__PLUGIN_DIR . 'includes/class-wwp-deactivator.php';
 register_deactivation_hook( __FILE__, array( 'WWP_Deactivator', 'deactivate' ) );
 
-require_once plugin_dir_path( __FILE__ ) . 'includes/class-wp-willmail-put.php';
+require_once WWP__PLUGIN_DIR . 'includes/class-wp-willmail-put.php';
 
 /*
  * Begin execution of the plugin.
  */
 if ( defined( 'WPCF7_VERSION' ) ) {
 	// すべての動作は、contact form 7 があるときにしか動かない.
-	$wp_willmail_put = new Wp_Willmail_Put();
-	$wp_willmail_put->run();
+	$wwp = new Wp_Willmail_Put();
+	$wwp->run();
 }
 
 if ( is_admin() ) {
-	require_once WPCF7_PLUGIN_DIR . '/admin/admin.php';
+	require_once WWP__PLUGIN_DIR . 'admin/class-wwp-admin.php';
+	$wwp_admin = new WWP_Admin();
+	$wwp_admin->run();
 }

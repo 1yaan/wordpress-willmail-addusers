@@ -24,7 +24,7 @@ class WWP_Admin {
 	 */
 	public function __construct() {
 		$this->load_dependencies();
-		$this->define_public_hooks();
+		$this->define_admin_hooks();
 	}
 
 	/**
@@ -34,7 +34,6 @@ class WWP_Admin {
 	 * @access private
 	 */
 	private function load_dependencies() {
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'public/class-wwp-public.php';
 	}
 
 	/**
@@ -43,9 +42,9 @@ class WWP_Admin {
 	 * @since  0.1.0
 	 * @access private
 	 */
-	private function define_public_hooks() {
-		add_action( 'admin_menu', array( $this, 'add_plugin_admin_menu' ), 99 );
-		add_filter( 'plugin_action_links_' . WWP__PLUGIN_BASENAME, 'add_plugin_settings_link', 21 );
+	private function define_admin_hooks() {
+		add_filter( 'plugin_action_links_' . WWP__PLUGIN_BASENAME, array( $this, 'add_plugin_settings_link' ) );
+		add_action( 'admin_menu', array( $this, 'add_plugin_admin_menu' ) );
 	}
 
 	/**
@@ -55,7 +54,7 @@ class WWP_Admin {
 	 * @return array
 	 */
 	function add_plugin_settings_link( $links ) {
-		$links[] = '<a href="' . admin_url( 'options-general.php?page=' . WWP__PLUGIN_NAME ) . '">' . __( 'Settings' ) . '</a>';
+		$links[] = '<a href="' . admin_url( 'admin.php?page=' . WWP__PLUGIN_NAME ) . '">' . __( 'Settings' ) . '</a>';
 		return $links;
 	}
 
@@ -66,7 +65,7 @@ class WWP_Admin {
 	 */
 	public function add_plugin_admin_menu() {
 		// Dashicons https://developer.wordpress.org/resource/dashicons/#external list.
-		add_menu_page( 'WP WiLL Mail Put', 'WiLL Mail', 'edit_posts', 'display_plugin_admin_page', 'dashicons-email', 21 );
+		add_menu_page( 'WP WiLL Mail Put', 'WiLL Mail', 'manage_options', WWP__PLUGIN_NAME, array( $this, 'display_plugin_admin_page' ), 'dashicons-email' );
 	}
 
 	/**
@@ -80,4 +79,12 @@ class WWP_Admin {
 		include_once( WWP__PLUGIN_DIR . 'admin/includes/settings.php' );
 	}
 
+	/**
+	 * Run the loader to execute all of the hooks with WordPress.
+	 *
+	 * @since  0.1.0
+	 * @access public
+	 */
+	public function run() {
+	}
 }

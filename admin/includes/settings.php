@@ -12,11 +12,11 @@
  */
 
 if ( ! empty( $_POST ) and check_admin_referer( 'wp-willmail-put-settings', 'wwp-nonce' ) ) {
-	update_option('wp_willmail_put_target_db_id', $_POST['wp_willmail_put_target_db_id']);
-	update_option('wp_willmail_put_account_key', $_POST['wp_willmail_put_account_key']);
-	update_option('wp_willmail_put_api_key', $_POST['wp_willmail_put_api_key']);
+	update_option( 'wp_willmail_put_target_db_id', $_POST['wp_willmail_put_target_db_id'] );
+	update_option( 'wp_willmail_put_account_key', $_POST['wp_willmail_put_account_key'] );
+	update_option( 'wp_willmail_put_api_key', $_POST['wp_willmail_put_api_key'] );
 ?>
-	<div class="updated fade"><p><strong><?php _e('Options saved.'); ?></strong></p></div>
+	<div class="updated fade"><p><strong><?php _e( 'Options saved.' ); ?></strong></p></div>
 <?php
 }
 ?>
@@ -38,9 +38,9 @@ if ( ! empty( $_POST ) and check_admin_referer( 'wp-willmail-put-settings', 'wwp
 			wp_nonce_field( 'wp-willmail-put-settings', 'wwp-nonce' );
 
 			// 初期値
-			$wp_willmail_put_target_db_id = get_option('wp_willmail_put_target_db_id');
-			$wp_willmail_put_account_key  = get_option('wp_willmail_put_account_key');
-			$wp_willmail_put_api_key      = get_option('wp_willmail_put_api_key');
+			$wp_willmail_put_target_db_id = get_option( 'wp_willmail_put_target_db_id' );
+			$wp_willmail_put_account_key  = get_option( 'wp_willmail_put_account_key' );
+			$wp_willmail_put_api_key      = get_option( 'wp_willmail_put_api_key' );
 
 			echo <<<EOD
 <table class="form-table">

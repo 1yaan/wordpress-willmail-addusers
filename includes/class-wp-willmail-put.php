@@ -12,9 +12,9 @@
  */
 
 /**
- * Wp_Willmail_Addusers
+ * Wp_Willmail_Put
  */
-class Wp_Willmail_Addusers {
+class Wp_Willmail_Put {
 
 	/**
 	 * Construct.

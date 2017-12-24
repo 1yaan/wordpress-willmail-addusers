@@ -26,13 +26,13 @@ if ( ! empty( $_POST ) and check_admin_referer( 'wp-willmail-put-settings', 'wwp
 		$wwp_test_put = array_values( array_filter( array_map( 'trim', explode( "\n", $wwp_test ) ), 'strlen' ) );
 		if ( 2 == count( $wwp_test_put ) ) {
 			$wwp_test_put = json_encode( array_combine( explode( ',', $wwp_test_put[0] ), explode( ',', $wwp_test_put[1] ) ) );
-			$url = WWP__WILLMAIL_URL . $wp_willmail_put_account_key . '/' . $wp_willmail_put_target_db_id . '/put';
+			$url          = WWP__WILLMAIL_URL . $wp_willmail_put_account_key . '/' . $wp_willmail_put_target_db_id . '/put';
 
-			// 簡易接続
+			// Connect with REST API using curl.
 			$curl = curl_init();
 			curl_setopt( $curl, CURLOPT_URL, $url );
 			curl_setopt( $curl, CURLOPT_CUSTOMREQUEST, 'POST' ); // post.
-			curl_setopt( $curl, CURLOPT_USERPWD, $wp_willmail_put_account_key . ":" . $wp_willmail_put_api_key );
+			curl_setopt( $curl, CURLOPT_USERPWD, $wp_willmail_put_account_key . ':' . $wp_willmail_put_api_key );
 			curl_setopt( $curl, CURLOPT_POSTFIELDS, $wwp_test_put ); // jsonデータを送信.
 			curl_setopt( $curl, CURLOPT_HTTPHEADER, array( 'Content-Type: application/json' ) ); // リクエストにヘッダーを含める.
 			curl_setopt( $curl, CURLOPT_SSL_VERIFYPEER, false );

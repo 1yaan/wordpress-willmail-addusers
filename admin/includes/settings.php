@@ -26,20 +26,15 @@ if ( ! empty( $_POST ) and check_admin_referer( 'wp-willmail-put-settings', 'wwp
 		$wwp_test_put = array_values( array_filter( array_map( 'trim', explode( "\n", $wwp_test ) ), 'strlen' ) );
 		if ( 2 == count( $wwp_test_put ) ) {
 			$wwp_test_put = json_encode( array_combine( explode( ',', $wwp_test_put[0] ), explode( ',', $wwp_test_put[1] ) ) );
-			//print_r( '<br>**********<br>' );
-			//print_r( $wwp_test_put );
-
 			$url = WWP__WILLMAIL_URL . $wp_willmail_put_account_key . '/' . $wp_willmail_put_target_db_id . '/put';
-			//print_r( '<br>**********<br>' );
-			//print_r( $url );
 
 			// 簡易接続
 			$curl = curl_init();
 			curl_setopt( $curl, CURLOPT_URL, $url );
-			curl_setopt( $curl, CURLOPT_CUSTOMREQUEST, 'POST' ); // post
+			curl_setopt( $curl, CURLOPT_CUSTOMREQUEST, 'POST' ); // post.
 			curl_setopt( $curl, CURLOPT_USERPWD, $wp_willmail_put_account_key . ":" . $wp_willmail_put_api_key );
-			curl_setopt( $curl, CURLOPT_POSTFIELDS, $wwp_test_put ); // jsonデータを送信
-			curl_setopt( $curl, CURLOPT_HTTPHEADER, array( 'Content-Type: application/json' ) ); // リクエストにヘッダーを含める
+			curl_setopt( $curl, CURLOPT_POSTFIELDS, $wwp_test_put ); // jsonデータを送信.
+			curl_setopt( $curl, CURLOPT_HTTPHEADER, array( 'Content-Type: application/json' ) ); // リクエストにヘッダーを含める.
 			curl_setopt( $curl, CURLOPT_SSL_VERIFYPEER, false );
 			curl_setopt( $curl, CURLOPT_RETURNTRANSFER, true );
 			curl_setopt( $curl, CURLOPT_HEADER, true );
@@ -48,11 +43,8 @@ if ( ! empty( $_POST ) and check_admin_referer( 'wp-willmail-put-settings', 'wwp
 			$result   = json_decode( $response, true );
 			?>
 			<div class="updated fade">
-				<p>
-					<strong>テストに成功しました。WiLL Mailにログインして、データが登録されていることをご確認ください。
-						重複したデータを入力した場合は、通信に成功してもデータは登録されません。
-					</strong>
-				</p>
+				<p><strong>テストに成功しました。WiLL Mailにログインして、データが登録されていることをご確認ください。
+						重複したデータを入力した場合は、通信に成功してもデータは登録されません。</strong></p>
 			</div>
 			<?php
 		} else {
@@ -122,7 +114,7 @@ EOD;
 			</p>
 <?php
 echo <<<EOD
-			<textarea name="wp_willmail_put_test" style="width:100%;height:100px;" placeholder="{ 'email': 'test@example.jp', 'name': 'テスト' }">{$wwp_test}</textarea>
+<textarea name="wp_willmail_put_test" style="width:100%;height:100px;" placeholder="{ 'email': 'test@example.jp', 'name': 'テスト' }">{$wwp_test}</textarea>
 EOD;
 ?>
 			<h4>注意</h4>
@@ -144,14 +136,6 @@ EOD;
 		</dl>
 	</div>
 </div>
-
-field_1	string	メールアドレス
-field_4	[string]	仮想通貨　所持
-field_5	[string]	仮想通貨　知識
-field_6	string	名前
-
-field_1,field_4,field_5,field_6
-test2@example.jp,持ってる,ない,テスト2
 
 <style>
 .settings_main {

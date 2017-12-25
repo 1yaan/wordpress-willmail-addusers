@@ -39,6 +39,44 @@ An automated testing status of *master* branch: [![Build Status](https://travis-
 * 今のところ、2つの違いは特にありません！
 * これで準備完了です。
 
+### Contact Form 7 sample
+
+WiLL Mail のターゲット DB に、以下のようなデータベースを作った場合、
+
+  名前 field_1
+  メールアドレス field_2
+  性別 field_3
+
+JSONオブジェクト構造は以下のようになるでしょう。
+これは、「アカウント」から、「API情報」を選択し、"データベースAPI情報"を選択することで、表示されます。
+
+  {
+    "field_1: string,
+    "field_2": string,
+    "field_3": [string],
+  }
+
+この場合の Contact Form 7 の入力欄は以下のようになります。
+
+  お名前 (必須)
+  [text* field_1]
+
+  メールアドレス (必須)
+  [email* field_2]
+
+  性別
+  [radio field_3 default:1 "男" "女"]
+
+  [hidden wwp_mail]
+
+  [submit "送信"]
+
+
+Contact Form 7 の入力フォームの中に、 `[hidden wwp_mail]` か `[hidden wwp_submit]` を入れることを忘れないでください。
+このフォームをページに設置してください。
+必要事項を入力し、送信ボタンを押すと、 WiLL Mail のターゲット DB へ登録されます。
+WiLL Mail からは、登録完了メール等は送信されませんので、 Contact Form 7 に自動返信の内容等を盛り込むことをおすすめします！
+
 ## License
 
 [GNU General Public License version 2 or later](http://www.gnu.org/licenses/gpl-2.0.html)

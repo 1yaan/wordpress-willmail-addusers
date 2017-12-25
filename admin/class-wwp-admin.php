@@ -23,17 +23,7 @@ class WWP_Admin {
 	 * @access public
 	 */
 	public function __construct() {
-		$this->load_dependencies();
 		$this->define_admin_hooks();
-	}
-
-	/**
-	 * Loads the required dependencies for this plugin.
-	 *
-	 * @since  0.1.0
-	 * @access private
-	 */
-	private function load_dependencies() {
 	}
 
 	/**
@@ -77,14 +67,5 @@ class WWP_Admin {
 	 */
 	public function display_plugin_admin_page() {
 		include_once( WWP__PLUGIN_DIR . 'admin/includes/settings.php' );
-	}
-
-	/**
-	 * Run the loader to execute all of the hooks with WordPress.
-	 *
-	 * @since  0.1.0
-	 * @access public
-	 */
-	public function run() {
 	}
 }

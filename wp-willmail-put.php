@@ -73,10 +73,8 @@ require_once WWP__PLUGIN_DIR . 'includes/class-wp-willmail-put.php';
 /*
  * Begin execution of the plugin.
  */
-if ( defined( 'WPCF7_VERSION' ) ) {
-	// すべての動作は、contact form 7 があるときにしか動かない.
-	$wwp = new Wp_Willmail_Put();
-}
+
+$wwp = new Wp_Willmail_Put();
 
 if ( is_admin() ) {
 	require_once WWP__PLUGIN_DIR . 'admin/class-wwp-admin.php';

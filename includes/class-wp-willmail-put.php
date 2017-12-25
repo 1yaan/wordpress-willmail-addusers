@@ -23,32 +23,9 @@ class Wp_Willmail_Put {
 	 * @access public
 	 */
 	public function __construct() {
-		$this->load_dependencies();
-		$this->define_public_hooks();
-
-		// Contact formへのフック
+		// Contact formへのフック.
 		add_action( 'wpcf7_submit', array( $this, 'wwp_cf7_submit' ), 10, 2 );
 		add_action( 'wpcf7_mail_sent', array( $this, 'wwp_cf7_mail_sent' ), 10, 1 );
-	}
-
-	/**
-	 * Loads the required dependencies for this plugin.
-	 *
-	 * @since  0.1.0
-	 * @access private
-	 */
-	private function load_dependencies() {
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'public/class-wwp-public.php';
-	}
-
-	/**
-	 * Define public hooks.
-	 *
-	 * @since  0.1.0
-	 * @access private
-	 */
-	private function define_public_hooks() {
-		$plugin_public = new WWP_Public();
 	}
 
 	/**
@@ -80,11 +57,11 @@ class Wp_Willmail_Put {
 	/**
 	 * Contact Form 7 のメール送信時に、$_REQUESTのデータをすべてWiLL Mailへ送信する.
 	 *
-	 * @param  Object $cf Contact Form クラス
+	 * @param  Object $cf Contact Form クラス.
 	 * @return void
 	 */
 	public function wwp_cf7_mail_sent( $cf ) {
-		if( array_key_exists( 'wwp_mail', $_REQUEST ) ) {
+		if ( array_key_exists( 'wwp_mail', $_REQUEST ) ) {
 			$this->wwp_put();
 		}
 	}
@@ -92,12 +69,12 @@ class Wp_Willmail_Put {
 	/**
 	 * Contact Form 7 のsubmit時に、$_REQUESTのデータをすべてWiLL Mailへ送信する.
 	 *
-	 * @param  Object $cf Contact Form クラス
-	 * @param  array $result Contact Formのレスポンス.
+	 * @param  Object $cf     Contact Form クラス.
+	 * @param  array  $result Contact Formのレスポンス.
 	 * @return void
 	 */
 	public function wwp_cf7_submit( $cf, $result ) {
-		if( array_key_exists( 'wwp_submit', $_REQUEST ) and ! in_array( 'validation_failed', $result ) ) {
+		if ( array_key_exists( 'wwp_submit', $_REQUEST ) and ! in_array( 'validation_failed', $result ) ) {
 			$this->wwp_put();
 		}
 	}

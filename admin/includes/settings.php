@@ -73,7 +73,17 @@ if ( ! empty( $_POST ) and check_admin_referer( 'wp-willmail-put-settings', 'wwp
 			<li>"ターゲットDB"を作成ください。ご不明点はWiLL Mailのサポートセンターへどうぞ！ターゲットDBのIDを以下のフォームへ設定してください。</li>
 			<li>次にメニューの「アカウント」から、「API情報」を選択してください。</li>
 			<li>API情報画面にて表示される"アカウントキー"と"APIキー"を以下のフォームへ設定してください。</li>
-			<li>これで準備完了です。あとは、Contact form 7にて、同じフィールド名を持つフォームを作成してください。</li>
+			<li>
+				次に、<a href="https://contactform7.com/" target="_blank">Contact Form 7</a>でフォームを作ります。
+				フォームの各項目の名前を先ほど作ったデータベースの項目のJSONフィールド名と同じにしてください。<br>
+				項目のJSONフィールド名は、API情報画面の"データベースAPI情報"に表示される"JSONフィールド情報"を見てください。</li>
+			<li>
+				フォームの中に"[hidden wwp_mail]"もしくは"[hidden wwp_submit]"を設定します。この項目を設定することで、当プラグインは動きます。<br>
+				"[hidden wwp_mail]"を設定した場合は、Contact Form 7がメールを送信するときに、WiLL Mailへputします。<br>
+				"[hidden wwp_submit]"を設定した場合は、Contact Form 7で作ったフォームで、送信ボタンを押した処理の最後にWiLL Mailへputします。<br>
+				今のところ、2つの違いは特にありません！
+			</li>
+			<li>これで準備完了です。</li>
 		</ol>
 		<form action="" method="post">
 			<?php

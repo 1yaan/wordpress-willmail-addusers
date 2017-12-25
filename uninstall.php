@@ -15,3 +15,8 @@
 if ( ! defined( 'WP_UNINSTALL_PLUGIN' ) ) {
 	exit;
 }
+
+// Delete options.
+delete_option( 'wp_willmail_put_target_db_id' );
+delete_option( 'wp_willmail_put_account_key' );
+delete_option( 'wp_willmail_put_api_key' );

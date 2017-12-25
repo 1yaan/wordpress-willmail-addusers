@@ -43,10 +43,11 @@ An automated testing status of *master* branch: [![Build Status](https://travis-
 
 WiLL Mail のターゲット DB に、以下のようなデータベースを作った場合、
 
-|項目名|フィールド名|
-|名前|field_1|
-|メールアドレス|field_2|
-|性別|field_3|
+| 項目名      | フィールド名 |
+|:---------- |:--------:|
+| 名前        |  field_1 |
+| メールアドレス |   field_2 |
+| 性別        |   field_3 |
 
 JSONオブジェクト構造は以下のようになるでしょう。
 これは、「アカウント」から、「API情報」を選択し、"データベースAPI情報"を選択することで、表示されます。

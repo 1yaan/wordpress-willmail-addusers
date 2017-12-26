@@ -5,7 +5,6 @@
  * @since      0.1.0
  * @version    0.1
  * @package    wp-willmail-put
- * @subpackage wp-willmail-put/includes
  * @author     1yaan, {@link https://github.com/1yaan https://github.com/1yaan}
  * @copyright  1yaan, {@link https://github.com/1yaan https://github.com/1yaan}
  * @license    GPLv2 or later, {@link https://www.gnu.org/licenses/gpl.html https://www.gnu.org/licenses/gpl.html}

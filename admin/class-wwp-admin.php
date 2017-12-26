@@ -27,7 +27,7 @@ class WWP_Admin {
 	}
 
 	/**
-	 * Define public hooks.
+	 * Define admin hooks.
 	 *
 	 * @since  0.1.0
 	 * @access private
@@ -43,7 +43,7 @@ class WWP_Admin {
 	 * @param  array $links Plugin index links.
 	 * @return array
 	 */
-	function add_plugin_settings_link( $links ) {
+	public function add_plugin_settings_link( $links ) {
 		$links[] = '<a href="' . admin_url( 'admin.php?page=' . WWP__PLUGIN_NAME ) . '">' . __( 'Settings' ) . '</a>';
 		return $links;
 	}

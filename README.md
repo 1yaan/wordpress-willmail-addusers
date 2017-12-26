@@ -43,19 +43,19 @@ An automated testing status of *master* branch: [![Build Status](https://travis-
 
 WiLL Mail のターゲット DB に、以下のようなデータベースを作った場合、
 
-| 項目名      | フィールド名 |
-|:---------- |:--------:|
-| 名前        |  field_1 |
-| メールアドレス |   field_2 |
-| 性別        |   field_3 |
+| WiLL Mail 項目名 | フィールド名 | データ型        | 型       |
+|:--------------- |:----------:|:-------------- |:------- |
+| 名前             |  field_1   | 文字列型        | string  |
+| メールアドレス     |   field_2  | メールアドレス型 | string  |
+| 性別             |   field_3  | 選択型         | [string] |
 
 JSONオブジェクト構造は以下のようになるでしょう。
 これは、「アカウント」から、「API情報」を選択し、"データベースAPI情報"を選択することで、表示されます。
 
     {
-        "field_1: string,
-        "field_2": string,
-        "field_3": [string],
+        "field_1" : string,
+        "field_2" : string,
+        "field_3" : [string],
     }
 
 この場合の Contact Form 7 の入力欄は以下のようになります。

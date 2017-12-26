@@ -10,7 +10,7 @@
  * Plugin Name: WP Willmail Put
  * Plugin URI:  https://1yaan.github.io/wp-willmail-put/
  * Description: This is WordPress plugin. This plugin will put data to Willmail.
- * Version:     0.1.0
+ * Version:     1.0.0
  * Author:      1yaan
  * Author URI:  https://github.com/1yaan
  * License:     GPLv2 or later

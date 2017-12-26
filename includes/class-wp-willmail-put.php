@@ -3,7 +3,7 @@
  * WordPress WiLL Mail Put.
  *
  * @since      0.1.0
- * @version    0.1
+ * @version    1.0.0
  * @package    wp-willmail-put
  * @subpackage wp-willmail-put
  * @author     1yaan, {@link https://github.com/1yaan https://github.com/1yaan}
@@ -19,8 +19,8 @@ class Wp_Willmail_Put {
 	/**
 	 * Construct.
 	 *
-	 * @since  0.1.0
 	 * @access public
+	 * @since  0.1.0
 	 */
 	public function __construct() {
 		// Contact formへのフック.
@@ -31,6 +31,8 @@ class Wp_Willmail_Put {
 	/**
 	 * $_REQUESTのデータをすべてWiLL Mailへ送信する.
 	 *
+	 * @access private
+	 * @since  0.1.0
 	 * @return void
 	 */
 	private function wwp_put() {
@@ -57,6 +59,8 @@ class Wp_Willmail_Put {
 	/**
 	 * Contact Form 7 のメール送信時に、$_REQUESTのデータをすべてWiLL Mailへ送信する.
 	 *
+	 * @access public
+	 * @since  0.1.0
 	 * @param  Object $cf Contact Form クラス.
 	 * @return void
 	 */
@@ -69,6 +73,8 @@ class Wp_Willmail_Put {
 	/**
 	 * Contact Form 7 のsubmit時に、$_REQUESTのデータをすべてWiLL Mailへ送信する.
 	 *
+	 * @access public
+	 * @since  0.1.0
 	 * @param  Object $cf     Contact Form クラス.
 	 * @param  array  $result Contact Formのレスポンス.
 	 * @return void

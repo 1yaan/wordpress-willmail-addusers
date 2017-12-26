@@ -3,7 +3,7 @@
  * WP WiLL Mail Put Admin.
  *
  * @since      0.1.0
- * @version    0.1
+ * @version    1.0.0
  * @package    wp-willmail-put
  * @subpackage wp-willmail-put/includes
  * @author     1yaan, {@link https://github.com/1yaan https://github.com/1yaan}
@@ -19,8 +19,8 @@ class WWP_Admin {
 	/**
 	 * Construct.
 	 *
-	 * @since  0.1.0
 	 * @access public
+	 * @since  0.1.0
 	 */
 	public function __construct() {
 		$this->define_admin_hooks();
@@ -29,8 +29,8 @@ class WWP_Admin {
 	/**
 	 * Define admin hooks.
 	 *
-	 * @since  0.1.0
 	 * @access private
+	 * @since  0.1.0
 	 */
 	private function define_admin_hooks() {
 		add_filter( 'plugin_action_links_' . WWP__PLUGIN_BASENAME, array( $this, 'add_plugin_settings_link' ) );
@@ -40,6 +40,8 @@ class WWP_Admin {
 	/**
 	 * Add action links.
 	 *
+	 * @access public
+	 * @since  0.1.0
 	 * @param  array $links Plugin index links.
 	 * @return array
 	 */
@@ -51,6 +53,8 @@ class WWP_Admin {
 	/**
 	 * Add plugin admin menu pages.
 	 *
+	 * @access public
+	 * @since  0.1.0
 	 * @return void
 	 */
 	public function add_plugin_admin_menu() {
@@ -61,8 +65,8 @@ class WWP_Admin {
 	/**
 	 * Render the settings page for this plugin.
 	 *
-	 * @since 0.1
-	 * @access private
+	 * @access public
+	 * @since  0.1.0
 	 * @return void
 	 */
 	public function display_plugin_admin_page() {

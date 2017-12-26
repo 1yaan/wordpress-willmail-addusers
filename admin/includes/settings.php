@@ -3,7 +3,7 @@
  * WP WiLL Mail Put Settings.
  *
  * @since      0.1.0
- * @version    0.1
+ * @version    1.0.0
  * @package    wp-willmail-put
  * @subpackage wp-willmail-put/includes
  * @author     1yaan, {@link https://github.com/1yaan https://github.com/1yaan}

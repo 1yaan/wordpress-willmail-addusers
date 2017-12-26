@@ -5,7 +5,7 @@
  * This class defines all code necessary to run during the plugin's deactivation.
  *
  * @since      0.1.0
- * @version    0.1
+ * @version    1.0.0
  * @package    wp-willmail-put
  * @subpackage wp-willmail-put/includes
  * @author     1yaan, {@link https://github.com/1yaan https://github.com/1yaan}
@@ -21,7 +21,8 @@ class WWP_Deactivator {
 	/**
 	 * Fired when the plugin is deactivated.
 	 *
-	 * @since    0.1.0
+	 * @access public
+	 * @since  0.1.0
 	 */
 	public static function deactivate() {
 	} // end deactivate

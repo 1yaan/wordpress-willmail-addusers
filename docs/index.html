@@ -4,7 +4,7 @@
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>WP Bitcoin Chart Example</title>
+	<title>WordPress WiLL Mail Put Plugin Example</title>
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.6.1/css/bulma.min.css">
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.19.3/moment.min.js"></script>
@@ -104,9 +104,158 @@
 			<div class="container has-text-centered">
 				<h1 class="title">WP WiLLMail Put Plugin</h1>
 				<h2 class="subtitle">
-					ただいま準備中<br>
-					<a href="https://willcloud.jp/">https://willcloud.jp/</a>
+					WP WiLL Mail Put Pluginに興味をもってくださってありがとうございます！<br>
+					このプラグインは<a href="https://willcloud.jp/" target="_blank">WiLL Mail</a>のターゲットDBに<a href="https://contactform7.com/" target="_blank">Contact Form 7</a>からデータを登録したい方向けのプラグインです。
 				</h2>
+			</div>
+		</div>
+	</section>
+
+	<section class="container">
+
+		<div class="sandbox">
+			<div class="tile is-ancestor">
+				<div class="tile is-parent">
+					<article class="tile is-child notification is-white">
+						<p class="title">使い方</p>
+						<p class="subtitle"><a href="https://willcloud.jp/" target="_blank">WiLL Mail</a>と<a href="https://contactform7.com/" target="_blank">Contact Form 7</a>の設定について</p>
+						<div class="content">
+						<ul>
+							<li><a href="https://willap.jp/login?wordpres-plugin=wp-willmail-put" target="_blank">WiLL Cloud ログイン</a> より、ログインしてください。</li>
+							<li>まずはメニューの「データベース」から、「データベース設計」を選択してください。</li>
+							<li>"ターゲットDB"を作成ください。ご不明点は<a href="https://willcloud.jp/" target="_blank">WiLL Mail</a>のサポートセンターへどうぞ！ターゲットDBのIDを以下のフォームへ設定してください。</li>
+							<li>次にメニューの「アカウント」から、「API情報」を選択してください。</li>
+							<li>API情報画面にて表示される"アカウントキー"と"APIキー"を以下のフォームへ設定してください。</li>
+							<li>次に、 <a href="https://contactform7.com/" target="_blank">Contact Form 7</a> でフォームを作ります。</li>
+							<li>フォームの各項目の名前を先ほど作ったデータベースの項目のJSONフィールド名と同じにしてください。</li>
+							<li>項目のJSONフィールド名は、API情報画面の"データベースAPI情報"に表示される"JSONフィールド情報"を見てください。</li>
+							<li>フォームの中に <code>[hidden wwp_mail]</code> もしくは <code>[hidden wwp_submit]</code> を設定します。この項目を設定することで、当プラグインは動きます。</li>
+							<li><code>[hidden wwp_mail]</code> を設定した場合は、<a href="https://contactform7.com/" target="_blank">Contact Form 7</a>がメールを送信するときに、<a href="https://willcloud.jp/" target="_blank">WiLL Mail</a>へputします。</li>
+							<li><code>[hidden wwp_submit]</code> を設定した場合は、<a href="https://contactform7.com/" target="_blank">Contact Form 7</a>で作ったフォームで、送信ボタンを押した処理の最後に<a href="https://willcloud.jp/" target="_blank">WiLL Mail</a>へputします。</li>
+							<li>今のところ、2つの違いは特にありません！</li>
+							<li>これで準備完了です。</li>
+						</ul>
+					</article>
+				</div>
+			</div>
+
+			<div class="tile is-ancestor">
+				<div class="tile is-parent">
+					<article class="tile is-child notification is-white">
+						<p class="title">設定例</p>
+						<p class="subtitle"><a href="https://willcloud.jp/" target="_blank">WiLL Mail</a>と<a href="https://contactform7.com/" target="_blank">Contact Form 7</a>の設定を実際に見てみます.</p>
+
+						<strong>1. <a href="https://willcloud.jp/" target="_blank">WiLL Mail</a> の設定</strong>
+
+						<p>WiLL Mail のターゲット DB に、以下のようなデータベースを作った場合、</p>
+
+						<table class="table is-striped is-narrow">
+							<caption>WiLL MailのターゲットDBを作ったときの例</caption>
+							<thead>
+								<tr>
+									<th>WiLL Mail 項目名</th>
+									<th>フィールド名</th>
+									<th>データ型</th>
+									<th>型</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<th>名前</th>
+									<td>field_1</td>
+									<td>文字列型</td>
+									<td>string</td>
+								</tr>
+								<tr>
+									<th>メールアドレス</th>
+									<td>field_1</td>
+									<td>メールアドレス型</td>
+									<td>string</td>
+								</tr>
+								<tr>
+									<th>性別</th>
+									<td>field_1</td>
+									<td>選択型</td>
+									<td>[string]</td>
+								</tr>
+							</tbody>
+						</table>
+
+						<p>
+							JSONオブジェクト構造は以下のようになるでしょう。<br>
+							これは、「アカウント」から、「API情報」を選択し、"データベースAPI情報"を選択することで、表示されます。
+						</p>
+
+						<pre>{
+    "field_1" : string,
+    "field_2" : string,
+    "field_3" : [string],
+}</pre>
+
+						<strong>2. <a href="https://contactform7.com/" target="_blank">Contact Form 7</a> の設定</strong>
+
+						<p>1のようにターゲットDBを作成した場合の Contact Form 7 の入力欄は以下のようになります。</p>
+
+						<pre>お名前 (必須)
+[text* field_1]
+
+メールアドレス (必須)
+[email* field_2]
+
+性別
+[radio field_3 default:1 "男" "女"]
+
+[hidden wwp_mail]
+
+[submit "送信"]</pre>
+						<p>
+							Contact Form 7 の入力フォームの中に、 <code>[hidden wwp_mail]</code> か <code>[hidden wwp_submit]</code> を入れることを忘れないでください。<br>
+							このフォームをページに設置してください。<br>
+							<br>
+							この例では、他の入力項目は作成していませんが、例えばアンケートや、"利用規約に同意します"のチェックボックスといった入力項目を追加しても、WiLL Mailへの登録には影響しません。<br>
+							<br>
+							必要事項を入力し、送信ボタンを押すと、 <a href="https://willcloud.jp/" target="_blank">WiLL Mail</a> のターゲット DB へ登録されます。<br>
+							<a href="https://willcloud.jp/" target="_blank">WiLL Mail</a> からは、登録完了メール等は送信されませんので、 Contact Form 7 に自動返信の内容等を盛り込むことをおすすめします！
+						</p>
+					</article>
+				</div>
+			</div>
+
+			<div class="tile is-ancestor">
+				<div class="tile is-parent">
+					<article class="tile is-child notification is-danger">
+						<p class="title">ご要望について</p>
+						<div class="content">
+							<p>ご要望の受け付けは、TwitterのDMにお願いします。</p>
+							<a href="https://twitter.com/1yaan" target="_blank">こちら ( @1yaan )</a>
+						</div>
+					</article>
+				</div>
+				<div class="tile is-parent">
+					<article class="tile is-child notification is-success">
+						<p class="title">その他、お仕事の相談について</p>
+						<div class="content">
+							<p>私はフリーランスのプログラマです。お仕事の御見積依頼のご連絡お待ちしております！</p>
+							<a href="https://twitter.com/1yaan" target="_blank">こちら ( @1yaan )</a>
+						</div>
+					</article>
+				</div>
+				<div class="tile is-parent">
+					<article class="tile is-child notification is-white">
+						<div class="content">
+							<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+							<!-- github-docs -->
+							<ins class="adsbygoogle"
+							     style="display:block"
+							     data-ad-client="ca-pub-0119304545599366"
+							     data-ad-slot="8330348600"
+							     data-ad-format="auto"></ins>
+							<script>
+							(adsbygoogle = window.adsbygoogle || []).push({});
+							</script>
+						</div>
+					</article>
+				</div>
 			</div>
 		</div>
 	</section>

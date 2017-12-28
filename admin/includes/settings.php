@@ -11,86 +11,126 @@
  * @license    GPLv2 or later, {@link https://www.gnu.org/licenses/gpl.html https://www.gnu.org/licenses/gpl.html}
  */
 
-if ( ! empty( $_POST ) and check_admin_referer( 'wp-willmail-put-settings', 'wwp-nonce' ) ) {
-	$wp_willmail_put_target_db_id = $_POST['wp_willmail_put_target_db_id'];
-	$wp_willmail_put_account_key  = $_POST['wp_willmail_put_account_key'];
-	$wp_willmail_put_api_key      = $_POST['wp_willmail_put_api_key'];
-
-	update_option( 'wp_willmail_put_target_db_id', $wp_willmail_put_target_db_id );
-	update_option( 'wp_willmail_put_account_key', $wp_willmail_put_account_key );
-	update_option( 'wp_willmail_put_api_key', $wp_willmail_put_api_key );
-
-	$wwp_test = $_POST['wp_willmail_put_test'];
-
-	if ( ! empty( $wwp_test ) ) {
-		$wwp_test_put = array_values( array_filter( array_map( 'trim', explode( "\n", $wwp_test ) ), 'strlen' ) );
-		if ( 2 == count( $wwp_test_put ) ) {
-			$wwp_test_put = json_encode( array_combine( explode( ',', $wwp_test_put[0] ), explode( ',', $wwp_test_put[1] ) ) );
-			$url          = WWP__WILLMAIL_URL . $wp_willmail_put_account_key . '/' . $wp_willmail_put_target_db_id . '/put';
-
-			// Connect with REST API using curl.
-			$curl = curl_init();
-			curl_setopt( $curl, CURLOPT_URL, $url );
-			curl_setopt( $curl, CURLOPT_CUSTOMREQUEST, 'POST' ); // post.
-			curl_setopt( $curl, CURLOPT_USERPWD, $wp_willmail_put_account_key . ':' . $wp_willmail_put_api_key );
-			curl_setopt( $curl, CURLOPT_POSTFIELDS, $wwp_test_put ); // jsonデータを送信.
-			curl_setopt( $curl, CURLOPT_HTTPHEADER, array( 'Content-Type: application/json' ) ); // リクエストにヘッダーを含める.
-			curl_setopt( $curl, CURLOPT_SSL_VERIFYPEER, false );
-			curl_setopt( $curl, CURLOPT_RETURNTRANSFER, true );
-			curl_setopt( $curl, CURLOPT_HEADER, true );
-
-			$response = curl_exec( $curl );
-			$result   = json_decode( $response, true );
-			?>
-			<div class="updated fade">
-				<p><strong>テストに成功しました。WiLL Mailにログインして、データが登録されていることをご確認ください。
-						重複したデータを入力した場合は、通信に成功してもデータは登録されません。</strong></p>
-			</div>
-			<?php
-		} else {
-			?>
-				<div class="error"><p><strong>データの入力に誤りがあります。ご確認ください。</strong></p></div>
-			<?php
-		}
-	}
-?>
-	<div class="updated fade"><p><strong>設定が保存されました。</strong></p></div>
-<?php
-} else {
-	$wp_willmail_put_target_db_id = get_option( 'wp_willmail_put_target_db_id' );
-	$wp_willmail_put_account_key  = get_option( 'wp_willmail_put_account_key' );
-	$wp_willmail_put_api_key      = get_option( 'wp_willmail_put_api_key' );
-	$wwp_test                     = '';
-}
 ?>
 <div class="wrap">
-	<h2>WP WiLL Mail Put Settings</h2>
-	<div class="settings_main">
-		<h3>How to settings.</h3>
-		<ol>
-			<li><a href="https://willap.jp/login?wordpres-plugin=wp-willmail-put" target="_blank">WiLL Cloud ログイン</a>より、ログインしてください。</li>
-			<li>まずはメニューの「データベース」から、「データベース設計」を選択してください。</li>
-			<li>"ターゲットDB"を作成ください。ご不明点はWiLL Mailのサポートセンターへどうぞ！ターゲットDBのIDを以下のフォームへ設定してください。</li>
-			<li>次にメニューの「アカウント」から、「API情報」を選択してください。</li>
-			<li>API情報画面にて表示される"アカウントキー"と"APIキー"を以下のフォームへ設定してください。</li>
-			<li>
-				次に、<a href="https://contactform7.com/" target="_blank">Contact Form 7</a>でフォームを作ります。
-				フォームの各項目の名前を先ほど作ったデータベースの項目のJSONフィールド名と同じにしてください。<br>
-				項目のJSONフィールド名は、API情報画面の"データベースAPI情報"に表示される"JSONフィールド情報"を見てください。</li>
-			<li>
-				フォームの中に"[hidden wwp_mail]"もしくは"[hidden wwp_submit]"を設定します。この項目を設定することで、当プラグインは動きます。<br>
-				"[hidden wwp_mail]"を設定した場合は、Contact Form 7がメールを送信するときに、WiLL Mailへputします。<br>
-				"[hidden wwp_submit]"を設定した場合は、Contact Form 7で作ったフォームで、送信ボタンを押した処理の最後にWiLL Mailへputします。<br>
-				今のところ、2つの違いは特にありません！
-			</li>
-			<li>これで準備完了です。</li>
-		</ol>
-		<form action="" method="post">
-			<?php
-			// おまじない.
-			wp_nonce_field( 'wp-willmail-put-settings', 'wwp-nonce' );
+<form action="" method="post">
+<?php
+// おまじない.
+wp_nonce_field( 'wp-willmail-put-settings', 'wwp-nonce' );
+?>
+	<h1 class-"wp-heading-inline">WP WiLL Mail Put</h1>
+	<?php
+	if ( ! empty( $_POST ) and check_admin_referer( 'wp-willmail-put-settings', 'wwp-nonce' ) ) {
+		$wp_willmail_put_target_db_id = $_POST['wp_willmail_put_target_db_id'];
+		$wp_willmail_put_account_key  = $_POST['wp_willmail_put_account_key'];
+		$wp_willmail_put_api_key      = $_POST['wp_willmail_put_api_key'];
 
-			echo <<<EOD
+		update_option( 'wp_willmail_put_target_db_id', $wp_willmail_put_target_db_id );
+		update_option( 'wp_willmail_put_account_key', $wp_willmail_put_account_key );
+		update_option( 'wp_willmail_put_api_key', $wp_willmail_put_api_key );
+
+		$wwp_test = $_POST['wp_willmail_put_test'];
+
+		$button_name = $_POST['Submit'];
+
+		if ( 'Post' == $button_name and ! empty( $wwp_test ) ) {
+			$wwp_test_put = array_values( array_filter( array_map( 'trim', explode( "\n", $wwp_test ) ), 'strlen' ) );
+			if ( 2 == count( $wwp_test_put ) ) {
+				$wwp_test_put = json_encode( array_combine( explode( ',', $wwp_test_put[0] ), explode( ',', $wwp_test_put[1] ) ) );
+				$url          = WWP__WILLMAIL_URL . $wp_willmail_put_account_key . '/' . $wp_willmail_put_target_db_id . '/put';
+
+				// Connect with REST API using curl.
+				$curl = curl_init();
+				curl_setopt( $curl, CURLOPT_URL, $url );
+				curl_setopt( $curl, CURLOPT_CUSTOMREQUEST, 'POST' ); // post.
+				curl_setopt( $curl, CURLOPT_USERPWD, $wp_willmail_put_account_key . ':' . $wp_willmail_put_api_key );
+				curl_setopt( $curl, CURLOPT_POSTFIELDS, $wwp_test_put ); // jsonデータを送信.
+				curl_setopt( $curl, CURLOPT_HTTPHEADER, array( 'Content-Type: application/json' ) ); // リクエストにヘッダーを含める.
+				curl_setopt( $curl, CURLOPT_SSL_VERIFYPEER, false );
+				curl_setopt( $curl, CURLOPT_RETURNTRANSFER, true );
+				curl_setopt( $curl, CURLOPT_HEADER, true );
+
+				$response = curl_exec( $curl );
+				$result   = json_decode( $response, true );
+				?>
+				<div class="updated fade">
+					<p><strong>テストに成功しました。WiLL Mailにログインして、データが登録されていることをご確認ください。
+							重複したデータを入力した場合は、通信に成功してもデータは登録されません。</strong></p>
+				</div>
+				<?php
+			} else {
+				?>
+					<div class="error"><p><strong>データの入力に誤りがあります。ご確認ください。</strong></p></div>
+				<?php
+			}
+		}
+	?>
+		<div class="updated fade"><p><strong>設定が保存されました。</strong></p></div>
+	<?php
+	} else {
+		$wp_willmail_put_target_db_id = get_option( 'wp_willmail_put_target_db_id' );
+		$wp_willmail_put_account_key  = get_option( 'wp_willmail_put_account_key' );
+		$wp_willmail_put_api_key      = get_option( 'wp_willmail_put_api_key' );
+		$wwp_test                     = '';
+	}
+	?>
+	<p>
+		WP WiLL Mail Putは、Contact Form 7で作成した登録フォームの情報を使って、WiLL MailのターゲットDBへ情報を登録するプラグインです.<br>
+		詳しい説明は<a href="https://1yaan.github.io/wp-willmail-put/" target="_blank">こちら</a>をご確認ください。
+	</p>
+	<hr class="wp-header-end">
+
+	<div id="poststuff" class="metabox-holder has-right-sidebar">
+		<div id="side-info-column" class="inner-sidebar">
+			<div id="side-sortables" class="meta-box-sortables ui-sortable">
+				<div class="postbox ">
+					<h2><span>このプラグインについて</span></h2>
+					<div class="inside">
+						<div class="submitbox">
+							<div>
+								<dl>
+									<dt>使い方の説明<dt>
+									<dd><a href="https://1yaan.github.io/wp-willmail-put/" target="_blank">GitHub Page</a></dd>
+									<dt>ソースコード<dt>
+									<dd><a href="https://github.com/1yaan/wp-willmail-put" target="_blank">wp-willmail-put</a></dd>
+									<dt>Travis CI</dt>
+									<dd><a href="https://travis-ci.org/1yaan/wp-willmail-put" target="_blank">wp-willmail-put</a></dd>
+								</dl>
+								<div class="clear"></div>
+							</div>
+							<div class="clear"></div>
+						</div>
+					</div>
+				</div>
+
+				<div id="contacttagsdiv" class="postbox ">
+					<h2><span>PR</span></h2>
+					<div class="inside">
+						<div class="tagsdiv" id="flamingo_contact_tag">
+							<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+							<!-- github-docs -->
+							<ins class="adsbygoogle"
+									style="display:block"
+									data-ad-client="ca-pub-0119304545599366"
+									data-ad-slot="8330348600"
+									data-ad-format="auto"></ins>
+							<script>
+							(adsbygoogle = window.adsbygoogle || []).push({});
+							</script>
+						</div>
+					</div>
+				</div><!-- #contacttagsdiv -->
+			</div><!-- #side-sortables -->
+		</div><!-- #side-info-column -->
+
+		<div id="post-body">
+			<div id="post-body-content">
+				<div id="normal-sortables">
+					<div id="contactnamediv" class="postbox ">
+						<h2><span>キーの設定</span></h2>
+						<div class="inside content">
+							<?php
+							echo <<<EOD
 <table class="form-table">
 	<tr valign="top">
 		<th><label for="wp_willmail_put_target_db_id">ターゲットDB ID</label></th>
@@ -107,58 +147,67 @@ if ( ! empty( $_POST ) and check_admin_referer( 'wp-willmail-put-settings', 'wwp
 </table>
 EOD;
 ?>
-			<p class="submit">
-				<input type="submit" name="Submit" class="button-primary" value="設定">
-			</p>
+							<input type="submit" name="Submit" class="button-primary" value="Settings">
 
-			<hr>
-			<br>
+							<br>
+							<br>
+							<hr>
+							<br>
+						</div>
 
-			<h3>【上級者向け】お試し送信</h3>
-			<p>
-				WiLL Mailへきちんと接続できているのか、お試し用のフォームを用意しました。下のフィールドへCSV形式でターゲットDBへ送信する内容を入力し、送信ボタンを押してください。<br>
-				1列目がキー（フィールド名）、2列目が値（これから入力してもらうデータ）を入力してください。<br>
-				例）<br>
-				email,prefecture,tel,name<br>
-				test@example.jp,東京都,00-0000-0000,田中太郎<br>
-			</p>
-<?php
-echo <<<EOD
+						<h2><span>【上級者向け】お試し送信</span></h2>
+						<div class="inside content">
+							<p>
+								WiLL Mailへきちんと接続できているのか、お試し用のフォームを用意しました。下のフィールドへCSV形式でターゲットDBへ送信する内容を入力し、送信ボタンを押してください。<br>
+								1列目がキー（フィールド名）、2列目が値（これから入力してもらうデータ）を入力してください。<br>
+								例）<br>
+								email,prefecture,tel,name<br>
+								test@example.jp,東京都,00-0000-0000,田中太郎<br>
+							</p>
+				<?php
+				echo <<<EOD
 <textarea name="wp_willmail_put_test" style="width:100%;height:100px;" placeholder="{ 'email': 'test@example.jp', 'name': 'テスト' }">{$wwp_test}</textarea>
 EOD;
 ?>
-			<h4>注意</h4>
-			<ul>
-				<li>データの構造（JSONオブジェクト構造）については、API情報の"データベースAPI情報"を参照ください。送信できるデータは1つのみです。</li>
-				<li>送信データに空白を含めることはできません。空白はプログラム内で除去されます。</li>
-			</ul>
-			<p class="submit">
-				<input type="submit" name="Submit" class="button-primary" value="送信">
-			</p>
-		</form>
+							<h4>注意</h4>
+							<ul>
+								<li>データの構造（JSONオブジェクト構造）については、API情報の"データベースAPI情報"を参照ください。送信できるデータは1つのみです。</li>
+								<li>送信データに空白を含めることはできません。空白はプログラム内で除去されます。</li>
+							</ul>
+
+							<input type="submit" name="Submit" class="button-primary" value="Post">
+						</div>
+
+						<br>
+						<br>
+						<hr>
+						<br>
+
+						<h2><span>設定方法</span></h2>
+						<div class="inside content">
+							<ol>
+								<li><a href="https://willap.jp/login?wordpres-plugin=wp-willmail-put" target="_blank">WiLL Cloud ログイン</a>より、ログインしてください。</li>
+								<li>まずはメニューの「データベース」から、「データベース設計」を選択してください。</li>
+								<li>"ターゲットDB"を作成ください。ご不明点はWiLL Mailのサポートセンターへどうぞ！ターゲットDBのIDを以下のフォームへ設定してください。</li>
+								<li>次にメニューの「アカウント」から、「API情報」を選択してください。</li>
+								<li>API情報画面にて表示される"アカウントキー"と"APIキー"を以下のフォームへ設定してください。</li>
+								<li>
+									次に、<a href="https://contactform7.com/" target="_blank">Contact Form 7</a>でフォームを作ります。
+									フォームの各項目の名前を先ほど作ったデータベースの項目のJSONフィールド名と同じにしてください。<br>
+									項目のJSONフィールド名は、API情報画面の"データベースAPI情報"に表示される"JSONフィールド情報"を見てください。</li>
+								<li>
+									フォームの中に"[hidden wwp_mail]"もしくは"[hidden wwp_submit]"を設定します。この項目を設定することで、当プラグインは動きます。<br>
+									"[hidden wwp_mail]"を設定した場合は、Contact Form 7がメールを送信するときに、WiLL Mailへputします。<br>
+									"[hidden wwp_submit]"を設定した場合は、Contact Form 7で作ったフォームで、送信ボタンを押した処理の最後にWiLL Mailへputします。<br>
+									今のところ、2つの違いは特にありません！
+								</li>
+								<li>これで準備完了です。</li>
+							</ol>
+						</div>
+					</div>
+				</div>
+				<div id="advanced-sortables" class="meta-box-sortables ui-sortable"></div>
+		</div><!-- #post-body-content -->
 	</div>
-	<div class="settings_right">
-		<dl>
-			<dt>Github<dt>
-			<dd><a href="https://github.com/1yaan/wp-willmail-put" target="_blank">1yaan/wp-willmail-put</a></dd>
-			<dt>Travis CI</dt>
-			<dd><a href="https://travis-ci.org/1yaan/wp-willmail-put" target="_blank">1yaan/wp-willmail-put</a></dd>
-		</dl>
-	</div>
+</form>
 </div>
-
-<style>
-.settings_main {
-	background: none repeat scroll 0 0 #F3F1EB;
-	border: 1px solid #DEDBD1;
-	padding: 10px;
-	width: 750px;
-	height: auto;
-	float: left;
-}
-
-.settings_right {
-	float: right;
-	width: 222px;
-}
-</style>

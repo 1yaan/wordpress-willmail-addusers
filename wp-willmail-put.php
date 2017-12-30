@@ -47,7 +47,7 @@ if ( ! function_exists( 'add_action' ) ) {
 }
 
 // This plugin version.
-define( 'WWP__VERSION', '0.1' );
+define( 'WWP__VERSION', '1.0' );
 // The absolute path of the directory that contains the file, with trailing slash ("/").
 define( 'WWP__PLUGIN_NAME', 'wp-willmail-put' );
 define( 'WWP__PLUGIN_DIR', plugin_dir_path( __FILE__ ) );

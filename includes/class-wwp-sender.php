@@ -17,11 +17,11 @@
 class WWP_Sender {
 
 	/**
-	 * put
+	 * Put data into WiLL Mail.
 	 *
 	 * @access public
 	 * @since  1.0.0
-	 * @param  array   $body Input fields.
+	 * @param  array $body Input fields.
 	 * @return array
 	 */
 	public static function put( $body ) {
@@ -36,11 +36,11 @@ class WWP_Sender {
 
 		$args = array(
 			'method'      => 'POST',
-	    'body'        => json_encode( $body ),
-	    'blocking'    => true,
+			'body'        => json_encode( $body ),
+			'blocking'    => true,
 			'sslverify'   => false,
 			'httpversion' => '1.0',
-	    'headers'     => array(
+			'headers'     => array(
 				'Content-Type'  => 'application/json',
 				'Authorization' => 'Basic ' . $auth,
 			),
@@ -49,10 +49,9 @@ class WWP_Sender {
 		$response = wp_remote_post( $url, $args );
 
 		if ( is_wp_error( $response ) ) {
-		   $error_message = $response->get_error_message();
-		   echo "Something went wrong: $error_message";
-		} else {
-			return $response;
+			$error_message = $response->get_error_message();
+			echo "Something went wrong: $error_message";
 		}
+		return $response;
 	} // end put
 }

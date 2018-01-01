@@ -46,18 +46,18 @@ wp_nonce_field( 'wp-willmail-put-settings', 'wwp-nonce' );
 			$validation_errors['wp_willmail_put_api_key'] = '入力値に誤りがあります.';
 		}
 
-		$wwp_test = sanitize_text_field( $_POST['wp_willmail_put_test'] );
+		$wwp_test    = $_POST['wp_willmail_put_test'];
 		$button_name = sanitize_text_field( $_POST['Submit'] );
 
 		if ( 'Post' == $button_name and ! empty( $wwp_test ) ) {
 			$wwp_test_put = array_values( array_filter( array_map( 'trim', explode( "\n", $wwp_test ) ), 'strlen' ) );
 			if ( 2 == count( $wwp_test_put ) ) {
 				$wwp_test_put = array_combine( explode( ',', $wwp_test_put[0] ), explode( ',', $wwp_test_put[1] ) );
-				$result       = WWP_Sender::put( $wwp_test_put );
+				$response     = WWP_Sender::put( $wwp_test_put );
 				echo <<<EOD
 <div class="updated fade">
 	<p><strong>テストに成功しました。WiLL Mailにログインして、データが登録されていることをご確認ください。
-			重複したデータを入力した場合は、通信に成功してもデータは登録されません。</strong></p>
+			重複したデータを入力した場合は、データは上書きされます。</strong></p>
 </div>
 EOD;
 			} else {
@@ -170,7 +170,7 @@ EOD;
 							</p>
 				<?php
 				echo <<<EOD
-<textarea name="wp_willmail_put_test" style="width:100%;height:100px;" placeholder="{ 'email': 'test@example.jp', 'name': 'テスト' }">{$wwp_test}</textarea>
+<textarea name="wp_willmail_put_test" style="width:100%;height:100px;">{$wwp_test}</textarea>
 EOD;
 ?>
 							<h4>注意</h4>

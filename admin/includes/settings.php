@@ -11,10 +11,10 @@
  * @license    GPLv2 or later, {@link https://www.gnu.org/licenses/gpl.html https://www.gnu.org/licenses/gpl.html}
  */
 
- $wp_willmail_put_target_db_id = get_option( 'wp_willmail_put_target_db_id' );
- $wp_willmail_put_account_key  = get_option( 'wp_willmail_put_account_key' );
- $wp_willmail_put_api_key      = get_option( 'wp_willmail_put_api_key' );
- $wwp_test                     = '';
+$wp_willmail_put_target_db_id = get_option( 'wp_willmail_put_target_db_id' );
+$wp_willmail_put_account_key  = get_option( 'wp_willmail_put_account_key' );
+$wp_willmail_put_api_key      = get_option( 'wp_willmail_put_api_key' );
+$wwp_test                     = '';
 
 ?>
 <div class="wrap">

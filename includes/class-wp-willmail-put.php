@@ -33,7 +33,7 @@ class Wp_Willmail_Put {
 	 *
 	 * @access private
 	 * @since  0.1.0
-	 * @return void
+	 * @return array
 	 */
 	private function wwp_put() {
 		if ( ! empty( $_REQUEST ) ) {
@@ -43,16 +43,7 @@ class Wp_Willmail_Put {
 			$url                          = WWP__WILLMAIL_URL . $wp_willmail_put_account_key . '/' . $wp_willmail_put_target_db_id . '/put';
 
 			// Connect with REST API using curl.
-			$curl = curl_init();
-			curl_setopt( $curl, CURLOPT_URL, $url );
-			curl_setopt( $curl, CURLOPT_CUSTOMREQUEST, 'POST' ); // post.
-			curl_setopt( $curl, CURLOPT_USERPWD, $wp_willmail_put_account_key . ':' . $wp_willmail_put_api_key );
-			curl_setopt( $curl, CURLOPT_POSTFIELDS, json_encode( $_REQUEST ) ); // jsonデータを送信.
-			curl_setopt( $curl, CURLOPT_HTTPHEADER, array( 'Content-Type: application/json' ) ); // リクエストにヘッダーを含める.
-			curl_setopt( $curl, CURLOPT_SSL_VERIFYPEER, false );
-			curl_setopt( $curl, CURLOPT_RETURNTRANSFER, true );
-			curl_setopt( $curl, CURLOPT_HEADER, true );
-			$response = curl_exec( $curl );
+			return WWP_Sender::put( $_REQUEST );
 		}
 	}
 

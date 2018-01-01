@@ -11,6 +11,11 @@
  * @license    GPLv2 or later, {@link https://www.gnu.org/licenses/gpl.html https://www.gnu.org/licenses/gpl.html}
  */
 
+ $wp_willmail_put_target_db_id = get_option( 'wp_willmail_put_target_db_id' );
+ $wp_willmail_put_account_key  = get_option( 'wp_willmail_put_account_key' );
+ $wp_willmail_put_api_key      = get_option( 'wp_willmail_put_api_key' );
+ $wwp_test                     = '';
+
 ?>
 <div class="wrap">
 <form action="" method="post">
@@ -21,57 +26,56 @@ wp_nonce_field( 'wp-willmail-put-settings', 'wwp-nonce' );
 	<h1 class-"wp-heading-inline">WP WiLL Mail Put</h1>
 	<?php
 	if ( ! empty( $_POST ) and check_admin_referer( 'wp-willmail-put-settings', 'wwp-nonce' ) ) {
-		$wp_willmail_put_target_db_id = $_POST['wp_willmail_put_target_db_id'];
-		$wp_willmail_put_account_key  = $_POST['wp_willmail_put_account_key'];
-		$wp_willmail_put_api_key      = $_POST['wp_willmail_put_api_key'];
+		$validation_errors = array();
+		if ( array_key_exists( 'wp_willmail_put_target_db_id', $_POST ) and is_numeric( $_POST['wp_willmail_put_target_db_id'] ) ) {
+			$wp_willmail_put_target_db_id = sanitize_text_field( $_POST['wp_willmail_put_target_db_id'] );
+			update_option( 'wp_willmail_put_target_db_id', $wp_willmail_put_target_db_id );
+		} else {
+			$validation_errors['wp_willmail_put_target_db_id'] = '入力値に誤りがあります.';
+		}
+		if ( array_key_exists( 'wp_willmail_put_account_key', $_POST ) and ctype_alnum( $_POST['wp_willmail_put_account_key'] ) ) {
+			$wp_willmail_put_account_key = sanitize_text_field( $_POST['wp_willmail_put_account_key'] );
+			update_option( 'wp_willmail_put_account_key', $wp_willmail_put_account_key );
+		} else {
+			$validation_errors['wp_willmail_put_account_key'] = '入力値に誤りがあります.';
+		}
+		if ( array_key_exists( 'wp_willmail_put_api_key', $_POST ) and ctype_alnum( $_POST['wp_willmail_put_api_key'] ) ) {
+			$wp_willmail_put_api_key = sanitize_text_field( $_POST['wp_willmail_put_api_key'] );
+			update_option( 'wp_willmail_put_api_key', $wp_willmail_put_api_key );
+		} else {
+			$validation_errors['wp_willmail_put_api_key'] = '入力値に誤りがあります.';
+		}
 
-		update_option( 'wp_willmail_put_target_db_id', $wp_willmail_put_target_db_id );
-		update_option( 'wp_willmail_put_account_key', $wp_willmail_put_account_key );
-		update_option( 'wp_willmail_put_api_key', $wp_willmail_put_api_key );
-
-		$wwp_test = $_POST['wp_willmail_put_test'];
-
-		$button_name = $_POST['Submit'];
+		$wwp_test = sanitize_text_field( $_POST['wp_willmail_put_test'] );
+		$button_name = sanitize_text_field( $_POST['Submit'] );
 
 		if ( 'Post' == $button_name and ! empty( $wwp_test ) ) {
 			$wwp_test_put = array_values( array_filter( array_map( 'trim', explode( "\n", $wwp_test ) ), 'strlen' ) );
 			if ( 2 == count( $wwp_test_put ) ) {
-				$wwp_test_put = json_encode( array_combine( explode( ',', $wwp_test_put[0] ), explode( ',', $wwp_test_put[1] ) ) );
-				$url          = WWP__WILLMAIL_URL . $wp_willmail_put_account_key . '/' . $wp_willmail_put_target_db_id . '/put';
-
-				// Connect with REST API using curl.
-				$curl = curl_init();
-				curl_setopt( $curl, CURLOPT_URL, $url );
-				curl_setopt( $curl, CURLOPT_CUSTOMREQUEST, 'POST' ); // post.
-				curl_setopt( $curl, CURLOPT_USERPWD, $wp_willmail_put_account_key . ':' . $wp_willmail_put_api_key );
-				curl_setopt( $curl, CURLOPT_POSTFIELDS, $wwp_test_put ); // jsonデータを送信.
-				curl_setopt( $curl, CURLOPT_HTTPHEADER, array( 'Content-Type: application/json' ) ); // リクエストにヘッダーを含める.
-				curl_setopt( $curl, CURLOPT_SSL_VERIFYPEER, false );
-				curl_setopt( $curl, CURLOPT_RETURNTRANSFER, true );
-				curl_setopt( $curl, CURLOPT_HEADER, true );
-
-				$response = curl_exec( $curl );
-				$result   = json_decode( $response, true );
-				?>
-				<div class="updated fade">
-					<p><strong>テストに成功しました。WiLL Mailにログインして、データが登録されていることをご確認ください。
-							重複したデータを入力した場合は、通信に成功してもデータは登録されません。</strong></p>
-				</div>
-				<?php
+				$wwp_test_put = array_combine( explode( ',', $wwp_test_put[0] ), explode( ',', $wwp_test_put[1] ) );
+				$result       = WWP_Sender::put( $wwp_test_put );
+				echo <<<EOD
+<div class="updated fade">
+	<p><strong>テストに成功しました。WiLL Mailにログインして、データが登録されていることをご確認ください。
+			重複したデータを入力した場合は、通信に成功してもデータは登録されません。</strong></p>
+</div>
+EOD;
 			} else {
-				?>
-					<div class="error"><p><strong>データの入力に誤りがあります。ご確認ください。</strong></p></div>
-				<?php
+				$validation_errors['wp_willmail_put_test'] = 'データの入力に誤りがあります。ご確認ください。.';
 			}
 		}
-	?>
-		<div class="updated fade"><p><strong>設定が保存されました。</strong></p></div>
-	<?php
-	} else {
-		$wp_willmail_put_target_db_id = get_option( 'wp_willmail_put_target_db_id' );
-		$wp_willmail_put_account_key  = get_option( 'wp_willmail_put_account_key' );
-		$wp_willmail_put_api_key      = get_option( 'wp_willmail_put_api_key' );
-		$wwp_test                     = '';
+
+		if ( count( $validation_errors ) > 0 ) {
+			foreach ( $validation_errors as $key => $em ) {
+				echo <<<EOD
+<div class="error"><p>{$key}:<strong>{$em}</strong></p></div>
+EOD;
+			}
+		} else {
+			echo <<<EOD
+<div class="updated fade"><p><strong>設定が保存されました。</strong></p></div>
+EOD;
+		}
 	}
 	?>
 	<p>

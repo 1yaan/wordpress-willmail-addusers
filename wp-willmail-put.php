@@ -69,6 +69,7 @@ require_once WWP__PLUGIN_DIR . 'includes/class-wwp-deactivator.php';
 register_deactivation_hook( __FILE__, array( 'WWP_Deactivator', 'deactivate' ) );
 
 require_once WWP__PLUGIN_DIR . 'includes/class-wp-willmail-put.php';
+require_once WWP__PLUGIN_DIR . 'includes/class-wwp-sender.php';
 
 /*
  * Begin execution of the plugin.

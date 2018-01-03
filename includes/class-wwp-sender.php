@@ -71,7 +71,7 @@ class WWP_Sender {
 	public static function sanitize_all_field( &$args = array(), $allow_html = array() ) {
 		if ( is_array( $args ) ) {
 			foreach ( $args as $key => $val ) {
-				$args[$key] = wp_kses( sanitize_text_field( $val ), $allow_html );
+				$args[ $key ] = wp_kses( sanitize_text_field( $val ), $allow_html );
 			}
 		} else {
 			$args = wp_kses( sanitize_text_field( $args ) );

@@ -21,10 +21,15 @@ class WWP_Sender {
 	 *
 	 * @access public
 	 * @since  1.0.0
-	 * @param  array $body Input fields.
+	 * @param  array   $body Input fields.
+	 * @param  boolean $sanitizable
 	 * @return array
 	 */
-	public static function put( $body ) {
+	public static function put( $body, $sanitizable = false ) {
+
+		if ( $sanitizable ) {
+			self::sanitize_all_field( $body );
+		}
 
 		$wp_willmail_put_target_db_id = get_option( 'wp_willmail_put_target_db_id' );
 		$wp_willmail_put_account_key  = get_option( 'wp_willmail_put_account_key' );
@@ -33,10 +38,11 @@ class WWP_Sender {
 		// Request header.
 		$auth = base64_encode( $wp_willmail_put_account_key . ':' . $wp_willmail_put_api_key );
 		$url  = WWP__WILLMAIL_URL . $wp_willmail_put_account_key . '/' . $wp_willmail_put_target_db_id . '/put';
+		$body = json_encode( $body );
 
 		$args = array(
 			'method'      => 'POST',
-			'body'        => json_encode( $body ),
+			'body'        => $body,
 			'blocking'    => true,
 			'sslverify'   => false,
 			'httpversion' => '1.0',
@@ -54,4 +60,21 @@ class WWP_Sender {
 		}
 		return $response;
 	} // end put
+
+	/**
+	 * Sanitize All Field.
+	 *
+	 * @param  mixed $args Input fields.
+	 * @param  array $allow_html List of allowed HTML elements
+	 * @return void
+	 */
+	public static function sanitize_all_field( &$args = array(), $allow_html = array() ) {
+		if ( is_array( $args ) ) {
+			foreach( $args as $key => $val ) {
+				$args[$key] = wp_kses( sanitize_text_field( $val ), $allow_html );
+			}
+		} else {
+			$args = wp_kses( sanitize_text_field( $args ) );
+		}
+	}
 }

@@ -38,7 +38,7 @@ class Wp_Willmail_Put {
 	 */
 	public function wwp_cf7_mail_sent( $cf ) {
 		if ( array_key_exists( 'wwp_mail', $_REQUEST ) ) {
-			WWP_Sender::put( $_REQUEST );
+			WWP_Sender::put( $_REQUEST, true );
 		}
 	}
 
@@ -53,7 +53,7 @@ class Wp_Willmail_Put {
 	 */
 	public function wwp_cf7_submit( $cf, $result ) {
 		if ( array_key_exists( 'wwp_submit', $_REQUEST ) and ! in_array( 'validation_failed', $result ) ) {
-			WWP_Sender::put( $_REQUEST );
+			WWP_Sender::put( $_REQUEST, true );
 		}
 	}
 }

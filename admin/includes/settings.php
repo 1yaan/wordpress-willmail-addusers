@@ -53,7 +53,7 @@ wp_nonce_field( 'wp-willmail-put-settings', 'wwp-nonce' );
 			$wwp_test_put = array_values( array_filter( array_map( 'trim', explode( "\n", $wwp_test ) ), 'strlen' ) );
 			if ( 2 == count( $wwp_test_put ) ) {
 				$wwp_test_put = array_combine( explode( ',', $wwp_test_put[0] ), explode( ',', $wwp_test_put[1] ) );
-				$response     = WWP_Sender::put( $wwp_test_put );
+				$response     = WWP_Sender::put( $wwp_test_put, true );
 				echo <<<EOD
 <div class="updated fade">
 	<p><strong>テストに成功しました。WiLL Mailにログインして、データが登録されていることをご確認ください。

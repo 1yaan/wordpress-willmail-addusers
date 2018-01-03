@@ -22,7 +22,7 @@ class WWP_Sender {
 	 * @access public
 	 * @since  1.0.0
 	 * @param  array   $body Input fields.
-	 * @param  boolean $sanitizable
+	 * @param  boolean $sanitizable Body fields will sanitaize.
 	 * @return array
 	 */
 	public static function put( $body, $sanitizable = false ) {
@@ -65,12 +65,12 @@ class WWP_Sender {
 	 * Sanitize All Field.
 	 *
 	 * @param  mixed $args Input fields.
-	 * @param  array $allow_html List of allowed HTML elements
+	 * @param  array $allow_html List of allowed HTML elements.
 	 * @return void
 	 */
 	public static function sanitize_all_field( &$args = array(), $allow_html = array() ) {
 		if ( is_array( $args ) ) {
-			foreach( $args as $key => $val ) {
+			foreach ( $args as $key => $val ) {
 				$args[$key] = wp_kses( sanitize_text_field( $val ), $allow_html );
 			}
 		} else {

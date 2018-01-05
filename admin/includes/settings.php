@@ -46,7 +46,7 @@ wp_nonce_field( 'wp-willmail-put-settings', 'wwp-nonce' );
 			$validation_errors['wp_willmail_put_api_key'] = '入力値に誤りがあります.';
 		}
 
-		$wwp_test    = $_POST['wp_willmail_put_test'];
+		$wwp_test    = sanitize_text_field( $_POST['wp_willmail_put_test'] );
 		$button_name = sanitize_text_field( $_POST['Submit'] );
 
 		if ( 'Post' == $button_name and ! empty( $wwp_test ) ) {
